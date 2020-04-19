@@ -15,12 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        let appearance = UINavigationBar.appearance()
-        appearance.barTintColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1.0)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         do {
             _ = try Realm()
         } catch {

@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
+
 class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
@@ -18,6 +20,18 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let color = UIColor(hexString: "#1D9BF6")!
+        let contrastedColor = ContrastColorOf(color, returnFlat: true)
+        
+        let app = UINavigationBarAppearance()
+        app.backgroundColor = color
+        app.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: contrastedColor]
+        navigationController?.navigationBar.scrollEdgeAppearance = app
+        
+        navigationController?.navigationBar.tintColor = contrastedColor
     }
 
     // MARK: - Table view data source
@@ -33,7 +47,16 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added"
+        if let category = categories?[indexPath.row] {
+            let colour = UIColor(hexString: category.color)
+            
+            cell.textLabel?.text = category.name
+            cell.backgroundColor = colour
+            cell.textLabel?.textColor = ContrastColorOf(colour!, returnFlat: true)
+            
+        } else {
+            cell.textLabel?.text = "No items added"
+        }
         
         return cell
     }
@@ -66,7 +89,11 @@ class CategoryViewController: SwipeTableViewController {
             }
         }
         
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(actionCancel)
         alert.addAction(action)
+        
         present(alert, animated: true, completion: nil)
     }
     

@@ -13,5 +13,6 @@ class Item: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var done: Bool = false
     @objc dynamic var dateCreated: Date?
+    @objc dynamic var color: String = UIColor.randomFlat().hexValue()
     var category = LinkingObjects(fromType: Category.self, property: "items")
 }

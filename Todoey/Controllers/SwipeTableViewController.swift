@@ -14,6 +14,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70.0
+        tableView.separatorStyle = .none
     }
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
